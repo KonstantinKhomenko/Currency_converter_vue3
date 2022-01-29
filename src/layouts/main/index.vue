@@ -1,15 +1,17 @@
 <template>
-  <div>
-    Layout
+  <AsideMenu />
 
-    <router-view />
-  </div>
+  <router-view />
 </template>
 
 <script>
+import AsideMenu from "@/components/layout/AsideMenu";
+
 export default {
-  name: "index",
+  name: "MainLayout",
+
+  components: {
+    AsideMenu,
+  },
 };
 </script>
-
-<style scoped></style>
