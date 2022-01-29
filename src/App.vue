@@ -9,4 +9,10 @@
   font-family: Avenir, Helvetica, Arial, sans-serif;
   color: #2c3e50;
 }
+
+html,
+body {
+  padding: 0;
+  margin: 0;
+}
 </style>
