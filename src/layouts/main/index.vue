@@ -5,7 +5,7 @@
 </template>
 
 <script>
-import AsideMenu from "@/components/layout/AsideMenu";
+import AsideMenu from "./_components/AsideMenu";
 
 export default {
   name: "MainLayout",
