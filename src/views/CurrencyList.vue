@@ -1,19 +1,37 @@
 <template>
-  <div>CurrencyList</div>
-  <div>{{ filteredCurrencies }}</div>
+  <div class="currencies">
+    <h2>Currency list</h2>
+
+    <div class="currencies-base">
+      <span>Base currency:</span>
+
+      <span class="currencies-base-rate">
+        {{ baseCurrencyCode }}
+      </span>
+    </div>
+
+    <el-table :data="filteredCurrencies" border class="currencies-table">
+      <el-table-column prop="currency" label="Currency" />
+      <el-table-column prop="rate" label="Rate" />
+    </el-table>
+  </div>
 </template>
 
 <script>
-import { computed } from "vue";
+import { onMounted, computed } from "vue";
 import axios from "@/plugins/axios";
+import { baseCurrencyCode, displayedCurrencies } from "@/config/currency";
 import useApi from "@/composables/useApi";
-import {
-  baseCurrencyCode,
-  displayedCurrencies,
-} from "@/config/currency.config";
+
+import { ElTable, ElTableColumn } from "element-plus";
 
 export default {
   name: "CurrencyList",
+
+  components: {
+    ElTable,
+    ElTableColumn,
+  },
 
   setup() {
     const { callApi, response: rateList } = useApi(async () => {
@@ -24,31 +42,50 @@ export default {
       return rates;
     });
 
-    callApi();
-
-    console.log(rateList.value);
+    onMounted(callApi);
 
     const filteredCurrencies = computed(() => {
-      return Object.entries(rateList.value ?? {}).reduce(
-        (acc, [currency, rate]) => {
-          if (displayedCurrencies.includes(currency)) {
-            acc[currency] = rate;
+      return Object.entries(rateList.value || {})
+        .filter(([key]) => {
+          const isBaseCurrency = baseCurrencyCode.value === key;
+          const isDisplayedCurrency = displayedCurrencies.includes(key);
 
-            return acc;
-          }
-        },
-        {}
-      );
+          return !isBaseCurrency && isDisplayedCurrency;
+        })
+        .map(([currency, rate]) => {
+          const transformedRate = (1 / parseFloat(rate)).toFixed(4);
+
+          return {
+            currency,
+            rate: transformedRate,
+          };
+        });
     });
 
-    console.log(filteredCurrencies.value);
-
     return {
-      rateList,
+      baseCurrencyCode,
       filteredCurrencies,
     };
   },
 };
 </script>
 
-<style scoped></style>
+<style lang="scss" scoped>
+.currencies {
+  padding: 1.5rem;
+
+  &-base {
+    padding-bottom: 1rem;
+
+    &-rate {
+      margin-left: 0.5rem;
+      color: #374151;
+      font-weight: 700;
+    }
+  }
+
+  .currencies-table {
+    width: 50%;
+  }
+}
+</style>
