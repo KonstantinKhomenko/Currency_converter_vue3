@@ -6,6 +6,8 @@ export default function useApi(getApiData) {
   const response = ref();
 
   const callApi = async () => {
+    loading.value = true;
+
     try {
       response.value = await getApiData();
     } catch (e) {
