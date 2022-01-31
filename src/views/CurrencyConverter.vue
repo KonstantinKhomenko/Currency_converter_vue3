@@ -46,7 +46,7 @@
 
 <script>
 import { onMounted, ref, computed, watch } from "vue";
-import useApi from "@/composables/useApi";
+import { useApi } from "@/composables/useApi";
 import axios from "@/plugins/axios";
 import { baseCurrencyCode } from "@/config/currency";
 

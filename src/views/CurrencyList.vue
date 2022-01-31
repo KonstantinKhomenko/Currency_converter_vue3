@@ -21,7 +21,7 @@
 import { onMounted, computed } from "vue";
 import axios from "@/plugins/axios";
 import { baseCurrencyCode, displayedCurrencies } from "@/config/currency";
-import useApi from "@/composables/useApi";
+import { useApi } from "@/composables/useApi";
 
 import { ElTable, ElTableColumn } from "element-plus";
 
