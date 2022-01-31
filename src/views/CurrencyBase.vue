@@ -18,25 +18,9 @@
   </div>
 </template>
 
-<script>
+<script setup>
 import { baseCurrencyCode, displayedCurrencies } from "@/config/currency";
 import { ElSelect, ElOption } from "element-plus";
-
-export default {
-  name: "CurrencyBase",
-
-  components: {
-    ElSelect,
-    ElOption,
-  },
-
-  setup() {
-    return {
-      baseCurrencyCode,
-      displayedCurrencies,
-    };
-  },
-};
 </script>
 
 <style lang="scss" scoped>

@@ -4,14 +4,6 @@
   <router-view />
 </template>
 
-<script>
+<script setup>
 import AsideMenu from "./_components/AsideMenu";
-
-export default {
-  name: "MainLayout",
-
-  components: {
-    AsideMenu,
-  },
-};
 </script>
