@@ -85,7 +85,8 @@ export default {
   }
 
   .currencies-table {
-    width: 50%;
+    min-width: 16rem;
+    width: 25%;
   }
 }
 </style>

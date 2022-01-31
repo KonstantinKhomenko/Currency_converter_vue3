@@ -7,6 +7,7 @@ export function useApi(getApiData) {
   const response = ref();
 
   const callApi = async () => {
+    error.value = false;
     loading.value = true;
 
     try {
